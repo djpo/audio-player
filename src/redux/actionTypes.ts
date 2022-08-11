@@ -1,0 +1,1 @@
+export const UPDATE_FAVORITE = "UPDATE_FAVORITE";

@@ -3,18 +3,20 @@ import { StyleSheet, Text, View } from "react-native";
 
 interface Props {
   title: string;
+  rating: number;
+  isFavorite: boolean;
 }
 
-const SongCard = ({ title }: Props): JSX.Element => {
+const SongCard = ({ title, rating, isFavorite }: Props): JSX.Element => {
   return (
     <View style={styles.card}>
       <View style={styles.top}>
-        <Text>⭐️⭐️⭐️⭐️⭐️</Text>
+        <Text>{`⭐️ x ${rating}`}</Text>
         <Text>img</Text>
       </View>
       <View style={styles.bottom}>
         <Text>{title}</Text>
-        <Text>❤️</Text>
+        <Text>{isFavorite ? "❤️" : "ø"}</Text>
       </View>
     </View>
   );
