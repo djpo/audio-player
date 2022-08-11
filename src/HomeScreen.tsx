@@ -38,10 +38,11 @@ const HomeScreen = (): JSX.Element => {
             backgroundColor: isDarkMode ? Colors.black : Colors.white,
           }}
         >
-          {songs.map(({ id, title, rating, isFavorite }: Song) => (
+          {songs.map(({ id, title, cover, rating, isFavorite }: Song) => (
             <SongCard
               key={id.toString()}
               title={title}
+              cover={cover}
               rating={rating}
               isFavorite={isFavorite}
             />

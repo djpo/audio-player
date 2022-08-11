@@ -1,22 +1,35 @@
 import React from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 interface Props {
   title: string;
+  cover: string;
   rating: number;
   isFavorite: boolean;
 }
 
-const SongCard = ({ title, rating, isFavorite }: Props): JSX.Element => {
+const SongCard = ({ title, cover, rating, isFavorite }: Props): JSX.Element => {
   return (
     <View style={styles.card}>
       <View style={styles.top}>
-        <Text>{`⭐️ x ${rating}`}</Text>
-        <Text>img</Text>
+        <Text style={styles.ratingText}>{`⭐️ x ${rating}`}</Text>
+        <View style={styles.coverContainer}>
+          <Image source={{ uri: cover }} style={styles.cover} />
+        </View>
       </View>
       <View style={styles.bottom}>
-        <Text>{title}</Text>
-        <Text>{isFavorite ? "❤️" : "ø"}</Text>
+        <Text style={styles.titleText}>{title}</Text>
+        {isFavorite ? (
+          <Image
+            source={require("./assets/heart-filled-black.png")}
+            style={styles.heart}
+          />
+        ) : (
+          <Image
+            source={require("./assets/heart-line-black.png")}
+            style={styles.heart}
+          />
+        )}
       </View>
     </View>
   );
@@ -24,17 +37,32 @@ const SongCard = ({ title, rating, isFavorite }: Props): JSX.Element => {
 
 const styles = StyleSheet.create({
   card: {
-    borderWidth: 2,
-    boderColor: "red",
-    padding: 10,
+    padding: 20,
   },
-  top: {
-    borderWidth: 2,
-    boderColor: "blue",
+  top: {},
+  ratingText: {
+    fontSize: 24,
+    color: "white",
+  },
+  coverContainer: {
+    marginTop: 6,
+    height: 100,
+  },
+  cover: {
+    width: 200,
+    height: 100,
   },
   bottom: {
-    borderWidth: 2,
-    boderColor: "green",
+    paddingTop: 6,
+  },
+  titleText: {
+    fontSize: 28,
+    color: "white",
+  },
+  heart: {
+    marginTop: 6,
+    width: 24,
+    height: 24,
   },
 });
 
