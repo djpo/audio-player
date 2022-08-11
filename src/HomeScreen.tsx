@@ -41,6 +41,7 @@ const HomeScreen = (): JSX.Element => {
           {songs.map(({ id, title, cover, rating, isFavorite }: Song) => (
             <SongCard
               key={id.toString()}
+              id={id}
               title={title}
               cover={cover}
               rating={rating}

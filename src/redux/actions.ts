@@ -1,5 +1,6 @@
 import { UPDATE_FAVORITE } from "./actionTypes";
 
-export function updateFavorite() {
-  return { type: UPDATE_FAVORITE };
-}
+export const updateFavorite = (id: number) => ({
+  type: UPDATE_FAVORITE,
+  payload: { id },
+});
