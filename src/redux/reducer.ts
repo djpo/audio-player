@@ -46,12 +46,12 @@ const INITIAL_STATE: RootState = {
 const appReducer = (state = INITIAL_STATE, action): RootState => {
   switch (action.type) {
     case UPDATE_FAVORITE: {
-      const newState = { ...state };
-      newState.songs[0].isFavorite = true;
-      newState.songs[1].isFavorite = false;
-      newState.songs[2].isFavorite = false;
-
-      return newState;
+      return {
+        songs: state.songs.map((song) => ({
+          ...song,
+          isFavorite: song.id === 1 ? true : false,
+        })),
+      };
     }
     default:
       return state;

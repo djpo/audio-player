@@ -1,5 +1,8 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { useDispatch } from "react-redux";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+
+import { updateFavorite } from "./redux/actions";
 
 interface Props {
   title: string;
@@ -9,6 +12,12 @@ interface Props {
 }
 
 const SongCard = ({ title, cover, rating, isFavorite }: Props): JSX.Element => {
+  const dispatch = useDispatch();
+
+  const handlePressFavorite = (): void => {
+    dispatch(updateFavorite());
+  };
+
   return (
     <View style={styles.card}>
       <View style={styles.top}>
@@ -19,17 +28,19 @@ const SongCard = ({ title, cover, rating, isFavorite }: Props): JSX.Element => {
       </View>
       <View style={styles.bottom}>
         <Text style={styles.titleText}>{title}</Text>
-        {isFavorite ? (
-          <Image
-            source={require("./assets/heart-filled-black.png")}
-            style={styles.heart}
-          />
-        ) : (
-          <Image
-            source={require("./assets/heart-line-black.png")}
-            style={styles.heart}
-          />
-        )}
+        <TouchableOpacity onPress={() => handlePressFavorite()}>
+          {isFavorite ? (
+            <Image
+              source={require("./assets/heart-filled-black.png")}
+              style={styles.heart}
+            />
+          ) : (
+            <Image
+              source={require("./assets/heart-line-black.png")}
+              style={styles.heart}
+            />
+          )}
+        </TouchableOpacity>
       </View>
     </View>
   );
