@@ -1,14 +1,11 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
-// interface Props {
-//   title: string;
-// }
-
-// const SongCard = ({ title }: Props) => {
-const SongCard: React.FC<{
+interface Props {
   title: string;
-}> = ({ title }) => {
+}
+
+const SongCard = ({ title }: Props): JSX.Element => {
   return (
     <View style={styles.card}>
       <View style={styles.top}>

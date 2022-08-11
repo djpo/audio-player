@@ -1,7 +1,3 @@
-/**
- * @format
- */
-
 import React from "react";
 import {
   SafeAreaView,
@@ -15,7 +11,7 @@ import {
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { SongCard } from "./SongCard";
 
-const App = () => {
+const App = (): JSX.Element => {
   const isDarkMode = useColorScheme() === "dark";
 
   const backgroundStyle = {
