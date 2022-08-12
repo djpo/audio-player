@@ -6,9 +6,14 @@ export interface RootState {
   songs: Song[];
 }
 
+export interface Action {
+  type: string;
+  payload: any;
+}
+
 const INITIAL_STATE = DEFAULT_STATE;
 
-const appReducer = (state = INITIAL_STATE, action): RootState => {
+const appReducer = (state = INITIAL_STATE, action: Action): RootState => {
   switch (action.type) {
     case UPDATE_FAVORITE: {
       return {
