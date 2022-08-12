@@ -25,7 +25,7 @@ const App = (): JSX.Element => {
           <Stack.Screen
             name="Song"
             component={SongScreen}
-            options={({ route }) => ({ title: route.params.name })}
+            options={({ route }) => ({ title: route.params.screenHeader })}
           />
         </Stack.Navigator>
       </NavigationContainer>

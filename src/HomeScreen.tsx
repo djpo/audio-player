@@ -21,8 +21,8 @@ const HomeScreen = ({ navigation }): JSX.Element => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
-  const handlePressSong = (screenHeader: string) => {
-    navigation.navigate("Song", { name: screenHeader });
+  const handlePressSong = (screenHeader: string, id: number) => {
+    navigation.navigate("Song", { screenHeader, id });
   };
 
   return (
@@ -45,7 +45,7 @@ const HomeScreen = ({ navigation }): JSX.Element => {
               cover={cover}
               rating={rating}
               isFavorite={isFavorite}
-              handlePressSong={() => handlePressSong(title)}
+              handlePressSong={() => handlePressSong(title, id)}
             />
           ))}
         </View>

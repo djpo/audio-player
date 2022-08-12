@@ -24,11 +24,9 @@ const SongCard = ({
   handlePressSong,
 }: Props): JSX.Element => {
   const dispatch = useDispatch();
-
   const handlePressFavorite = (): void => {
     dispatch(updateFavorite(id));
   };
-
   const handlePressRating = (newRating: number): void => {
     dispatch(updateRating(id, newRating));
   };
