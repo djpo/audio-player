@@ -1,8 +1,9 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { Image, StyleSheet, Text, View } from "react-native";
 
 import { updateFavorite } from "./redux/actions";
+import { FavoriteHeart } from "./FavoriteHeart";
 
 interface Props {
   id: number;
@@ -35,19 +36,10 @@ const SongCard = ({
       </View>
       <View style={styles.bottom}>
         <Text style={styles.titleText}>{title}</Text>
-        <TouchableOpacity onPress={handlePressFavorite}>
-          {isFavorite ? (
-            <Image
-              source={require("./assets/heart-filled-black.png")}
-              style={styles.heart}
-            />
-          ) : (
-            <Image
-              source={require("./assets/heart-line-black.png")}
-              style={styles.heart}
-            />
-          )}
-        </TouchableOpacity>
+        <FavoriteHeart
+          isFavorite={isFavorite}
+          handlePressFavorite={handlePressFavorite}
+        />
       </View>
     </View>
   );
@@ -76,11 +68,6 @@ const styles = StyleSheet.create({
   titleText: {
     fontSize: 28,
     color: "white",
-  },
-  heart: {
-    marginTop: 6,
-    width: 24,
-    height: 24,
   },
 });
 
