@@ -4,8 +4,6 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
-  StyleSheet,
-  Text,
   useColorScheme,
   View,
 } from "react-native";
@@ -15,7 +13,7 @@ import { selectSongs } from "./redux/selectors";
 import { SongCard } from "./SongCard";
 import type { Song } from "./types";
 
-const HomeScreen = (): JSX.Element => {
+const HomeScreen = ({ navigation }): JSX.Element => {
   const songs = useSelector(selectSongs);
 
   const isDarkMode = useColorScheme() === "dark";
@@ -23,12 +21,13 @@ const HomeScreen = (): JSX.Element => {
     backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
   };
 
+  const handlePressSong = (screenHeader: string) => {
+    navigation.navigate("Song", { name: screenHeader });
+  };
+
   return (
     <SafeAreaView style={backgroundStyle}>
       <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
-      <View style={styles.appTitleContainer}>
-        <Text style={styles.appTitle}>Skoovin'</Text>
-      </View>
       <ScrollView
         contentInsetAdjustmentBehavior="automatic"
         style={backgroundStyle}
@@ -46,6 +45,7 @@ const HomeScreen = (): JSX.Element => {
               cover={cover}
               rating={rating}
               isFavorite={isFavorite}
+              handlePressSong={() => handlePressSong(title)}
             />
           ))}
         </View>
@@ -53,15 +53,5 @@ const HomeScreen = (): JSX.Element => {
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-  appTitleContainer: {
-    alignItems: "center",
-    padding: 10,
-  },
-  appTitle: {
-    fontSize: 20,
-  },
-});
 
 export { HomeScreen };

@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 import { updateFavorite, updateRating } from "./redux/actions";
 import { RatingStars } from "./RatingStars";
@@ -12,6 +12,7 @@ interface Props {
   cover: string;
   rating: number;
   isFavorite: boolean;
+  handlePressSong: () => void;
 }
 
 const SongCard = ({
@@ -20,6 +21,7 @@ const SongCard = ({
   cover,
   rating,
   isFavorite,
+  handlePressSong,
 }: Props): JSX.Element => {
   const dispatch = useDispatch();
 
@@ -40,7 +42,9 @@ const SongCard = ({
         </View>
       </View>
       <View style={styles.bottom}>
-        <Text style={styles.titleText}>{title}</Text>
+        <TouchableOpacity onPress={handlePressSong}>
+          <Text style={styles.titleText}>{title}</Text>
+        </TouchableOpacity>
         <FavoriteHeart
           isFavorite={isFavorite}
           handlePressFavorite={handlePressFavorite}
