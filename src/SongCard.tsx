@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { Image, StyleSheet, Text, View } from "react-native";
 
 import { updateFavorite } from "./redux/actions";
+import { RatingStars } from "./RatingStars";
 import { FavoriteHeart } from "./FavoriteHeart";
 
 interface Props {
@@ -26,10 +27,16 @@ const SongCard = ({
     dispatch(updateFavorite(id));
   };
 
+  const handlePressRating = (newRating: number): void => {
+    console.log(`songId: ${id}, newRating: ${newRating}`);
+
+    // dispatch(updateRating(id, newRating));
+  };
+
   return (
     <View style={styles.card}>
       <View style={styles.top}>
-        <Text style={styles.ratingText}>{`⭐️ x ${rating}`}</Text>
+        <RatingStars rating={rating} handlePressRating={handlePressRating} />
         <View style={styles.coverContainer}>
           <Image source={{ uri: cover }} style={styles.cover} />
         </View>
@@ -50,10 +57,6 @@ const styles = StyleSheet.create({
     padding: 20,
   },
   top: {},
-  ratingText: {
-    fontSize: 24,
-    color: "white",
-  },
   coverContainer: {
     marginTop: 6,
     height: 100,
