@@ -1,4 +1,4 @@
-import { UPDATE_FAVORITE } from "./actionTypes";
+import { UPDATE_FAVORITE, UPDATE_RATING } from "./actionTypes";
 import type { Song } from "../types";
 
 export interface RootState {
@@ -58,6 +58,19 @@ const appReducer = (state = INITIAL_STATE, action): RootState => {
             ...song,
             isFavorite: false,
           };
+        }),
+      };
+    }
+    case UPDATE_RATING: {
+      return {
+        songs: state.songs.map((song) => {
+          if (song.id === action.payload.id) {
+            return {
+              ...song,
+              rating: action.payload.newRating,
+            };
+          }
+          return song;
         }),
       };
     }

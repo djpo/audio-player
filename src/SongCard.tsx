@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch } from "react-redux";
 import { Image, StyleSheet, Text, View } from "react-native";
 
-import { updateFavorite } from "./redux/actions";
+import { updateFavorite, updateRating } from "./redux/actions";
 import { RatingStars } from "./RatingStars";
 import { FavoriteHeart } from "./FavoriteHeart";
 
@@ -28,9 +28,7 @@ const SongCard = ({
   };
 
   const handlePressRating = (newRating: number): void => {
-    console.log(`songId: ${id}, newRating: ${newRating}`);
-
-    // dispatch(updateRating(id, newRating));
+    dispatch(updateRating(id, newRating));
   };
 
   return (
