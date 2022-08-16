@@ -1,18 +1,54 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import Sound from "react-native-sound";
+
+Sound.setCategory("Playback");
 
 interface Props {
   url: string;
 }
 
 const AudioPlayer = ({ url }: Props): JSX.Element => {
+  const [audio, setAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
 
+  useEffect(() => {
+    // initialize audio
+    const newAudio = new Sound(url, null, (error) => {
+      if (error) {
+        console.log("error loading sound:", error);
+        return;
+      }
+    });
+    setAudio(newAudio);
+
+    // clean up audio
+    return () => {
+      audio.release();
+    };
+  }, []);
+
   const playPause = () => {
-    if (isPlaying) {
-      setIsPlaying(false);
+    if (!audio) {
+      console.log("audio not loaded");
     } else {
-      setIsPlaying(true);
+      if (!isPlaying && !audio.isPlaying()) {
+        audio.play((success) => {
+          if (success) {
+            console.log("successfully finished playing");
+            setIsPlaying(false);
+          } else {
+            console.log("playback failed due to audio decoding errors");
+            setIsPlaying(false);
+          }
+        });
+        setIsPlaying(true);
+      }
+
+      if (isPlaying && audio.isPlaying()) {
+        audio.pause();
+        setIsPlaying(false);
+      }
     }
   };
 
