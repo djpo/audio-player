@@ -10,8 +10,8 @@ const displayPlaytime = (seconds: number) => {
   }
 
   const mins = Math.floor(seconds / 60);
-  const secsRemainder = Math.floor(seconds % 60);
-  return `${mins}:${secsRemainder}`;
+  const secs = Math.floor(seconds % 60);
+  return `${mins}:${secs < 10 ? `0${secs}` : secs}`;
 };
 
 interface Props {
@@ -31,7 +31,6 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
         return;
       }
     });
-
     setAudio(newAudio);
 
     // clean up audio
