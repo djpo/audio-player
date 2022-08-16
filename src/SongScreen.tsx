@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { selectSongs } from "./redux/selectors";
 import { updateFavorite, updateRating } from "./redux/actions";
+import { AudioPlayer } from "./AudioPlayer";
 import { FavoriteHeart } from "./FavoriteHeart";
 import { RatingStars } from "./RatingStars";
 import type { Song } from "./types";
@@ -36,6 +37,7 @@ const SongScreen = ({ route }: Props): JSX.Element => {
         />
       </View>
       <View style={styles.bottom}>
+        <AudioPlayer url={song.audio} />
         <View style={styles.sliderContainer}>
           <Text style={styles.slider}>----------(slider)----------</Text>
         </View>
