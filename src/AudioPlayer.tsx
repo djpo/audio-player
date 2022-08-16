@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Sound from "react-native-sound";
 
@@ -14,6 +14,28 @@ const displayPlaytime = (seconds: number) => {
   return `${mins}:${secs < 10 ? `0${secs}` : secs}`;
 };
 
+// from Dan Abramov's useInterval solution
+// https://overreacted.io/making-setinterval-declarative-with-react-hooks
+function useInterval(callback, delay) {
+  const savedCallback = useRef();
+
+  // remember the latest callback
+  useEffect(() => {
+    savedCallback.current = callback;
+  }, [callback]);
+
+  // set up the interval
+  useEffect(() => {
+    function tick() {
+      savedCallback.current();
+    }
+    if (delay !== null) {
+      let id = setInterval(tick, delay);
+      return () => clearInterval(id);
+    }
+  }, [delay]);
+}
+
 interface Props {
   url: string;
 }
@@ -22,9 +44,11 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
   const [audio, setAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [duration, setDuration] = useState(-1);
+  const [currentTime, setCurrentTime] = useState(-1);
 
+  // initialize & clean up audio
   useEffect(() => {
-    // initialize audio
+    // initialize
     const newAudio = new Sound(url, null, (error) => {
       if (error) {
         console.log("error loading sound:", error);
@@ -32,16 +56,26 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
       }
     });
     setAudio(newAudio);
-
-    // clean up audio
+    // clean up
     return () => newAudio.release();
   }, []);
 
-  const playPause = () => {
-    if (!audio) {
-      console.log("audio not loaded");
-    } else {
+  // set currentTime (at regular interval)
+  useInterval(() => {
+    if (audio) {
+      audio.getCurrentTime((secs) => {
+        setCurrentTime(secs);
+      });
+    }
+  }, 1000);
+
+  const handlePressPlayPause = () => {
+    if (audio) {
+      // set currentTime & duration (once)
       setDuration(audio.getDuration());
+      audio.getCurrentTime((secs) => {
+        setCurrentTime(secs);
+      });
 
       // audio is not playing
       if (!isPlaying && !audio.isPlaying()) {
@@ -68,7 +102,7 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
   return (
     <View style={styles.playerContainer}>
       <TouchableOpacity
-        onPress={playPause}
+        onPress={handlePressPlayPause}
         style={isPlaying ? styles.audioPlaying : styles.audioNotPlaying}
       >
         <Text style={styles.buttonText}>{isPlaying ? "pause" : "play"}</Text>
@@ -77,7 +111,9 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
         <Text style={styles.slider}>----------(slider)----------</Text>
       </View>
       <View style={styles.playtimeContainer}>
-        <Text style={styles.playtime}>{displayPlaytime(duration)}</Text>
+        <Text style={styles.playtime}>
+          {displayPlaytime(currentTime)} / {displayPlaytime(duration)}
+        </Text>
       </View>
     </View>
   );
