@@ -38,12 +38,6 @@ const SongScreen = ({ route }: Props): JSX.Element => {
       </View>
       <View style={styles.bottom}>
         <AudioPlayer url={song.audio} />
-        <View style={styles.sliderContainer}>
-          <Text style={styles.slider}>----------(slider)----------</Text>
-        </View>
-        <View style={styles.playtimeContainer}>
-          <Text style={styles.playtime}>0:34 / 5:43</Text>
-        </View>
         <RatingStars
           rating={song.rating}
           handlePressRating={handlePressRating}
@@ -68,21 +62,6 @@ const styles = StyleSheet.create({
   },
   bottom: {
     alignItems: "center",
-  },
-  sliderContainer: {
-    marginBottom: 20,
-    height: 30,
-    alignItems: "center",
-  },
-  slider: {
-    fontSize: 30,
-  },
-  playtimeContainer: {
-    marginBottom: 20,
-    height: 30,
-  },
-  playtime: {
-    fontSize: 30,
   },
 });
 

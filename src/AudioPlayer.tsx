@@ -1,8 +1,18 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Sound from "react-native-sound";
 
 Sound.setCategory("Playback");
+
+const displayPlaytime = (seconds: number) => {
+  if (seconds === -1) {
+    return "--:--";
+  }
+
+  const mins = Math.floor(seconds / 60);
+  const secsRemainder = Math.floor(seconds % 60);
+  return `${mins}:${secsRemainder}`;
+};
 
 interface Props {
   url: string;
@@ -11,6 +21,7 @@ interface Props {
 const AudioPlayer = ({ url }: Props): JSX.Element => {
   const [audio, setAudio] = useState(null);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [duration, setDuration] = useState(-1);
 
   useEffect(() => {
     // initialize audio
@@ -31,6 +42,9 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
     if (!audio) {
       console.log("audio not loaded");
     } else {
+      setDuration(audio.getDuration());
+
+      // audio is not playing
       if (!isPlaying && !audio.isPlaying()) {
         audio.play((success) => {
           if (success) {
@@ -44,6 +58,7 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
         setIsPlaying(true);
       }
 
+      // audio is playing
       if (isPlaying && audio.isPlaying()) {
         audio.pause();
         setIsPlaying(false);
@@ -52,16 +67,27 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
   };
 
   return (
-    <TouchableOpacity
-      onPress={playPause}
-      style={isPlaying ? styles.audioPlaying : styles.audioNotPlaying}
-    >
-      <Text style={styles.text}>{isPlaying ? "pause" : "play"}</Text>
-    </TouchableOpacity>
+    <View style={styles.playerContainer}>
+      <TouchableOpacity
+        onPress={playPause}
+        style={isPlaying ? styles.audioPlaying : styles.audioNotPlaying}
+      >
+        <Text style={styles.buttonText}>{isPlaying ? "pause" : "play"}</Text>
+      </TouchableOpacity>
+      <View style={styles.sliderContainer}>
+        <Text style={styles.slider}>----------(slider)----------</Text>
+      </View>
+      <View style={styles.playtimeContainer}>
+        <Text style={styles.playtime}>{displayPlaytime(duration)}</Text>
+      </View>
+    </View>
   );
 };
 
 const styles = StyleSheet.create({
+  playerContainer: {
+    alignItems: "center",
+  },
   audioNotPlaying: {
     height: 100,
     width: 100,
@@ -76,7 +102,22 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "green",
   },
-  text: {
+  buttonText: {
+    fontSize: 30,
+  },
+  sliderContainer: {
+    marginBottom: 20,
+    height: 30,
+    alignItems: "center",
+  },
+  slider: {
+    fontSize: 30,
+  },
+  playtimeContainer: {
+    marginBottom: 20,
+    height: 30,
+  },
+  playtime: {
     fontSize: 30,
   },
 });
