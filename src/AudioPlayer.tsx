@@ -20,12 +20,11 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
         return;
       }
     });
+
     setAudio(newAudio);
 
     // clean up audio
-    return () => {
-      audio.release();
-    };
+    return () => newAudio.release();
   }, []);
 
   const playPause = () => {
