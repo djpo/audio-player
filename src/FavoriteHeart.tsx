@@ -29,7 +29,6 @@ const FavoriteHeart = ({
 
 const styles = StyleSheet.create({
   heart: {
-    marginTop: 6,
     width: 24,
     height: 24,
   },

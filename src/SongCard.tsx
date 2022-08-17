@@ -32,45 +32,65 @@ const SongCard = ({
   };
 
   return (
-    <View style={styles.card}>
+    <TouchableOpacity onPress={handlePressSong} style={styles.card}>
       <View style={styles.top}>
-        <RatingStars rating={rating} handlePressRating={handlePressRating} />
         <View style={styles.coverContainer}>
-          <Image source={{ uri: cover }} style={styles.cover} />
+          <Image
+            source={{ uri: cover }}
+            resizeMode="cover"
+            style={styles.cover}
+          />
+        </View>
+        <View style={styles.starsContainer}>
+          <RatingStars rating={rating} handlePressRating={handlePressRating} />
         </View>
       </View>
       <View style={styles.bottom}>
-        <TouchableOpacity onPress={handlePressSong}>
-          <Text style={styles.titleText}>{title}</Text>
-        </TouchableOpacity>
-        <FavoriteHeart
-          isFavorite={isFavorite}
-          handlePressFavorite={handlePressFavorite}
-        />
+        <Text style={styles.titleText}>{title}</Text>
+        <View style={styles.heartContainer}>
+          <FavoriteHeart
+            isFavorite={isFavorite}
+            handlePressFavorite={handlePressFavorite}
+          />
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
 const styles = StyleSheet.create({
   card: {
-    padding: 20,
+    borderWidth: 1,
+    // borderColor: "red",
+    margin: 20,
+    marginBottom: 0,
   },
   top: {},
+  starsContainer: {
+    position: "absolute",
+    backgroundColor: "rgba(50,50,50,0.6)",
+    padding: 8,
+  },
   coverContainer: {
-    marginTop: 6,
-    height: 100,
+    alignItems: "center",
   },
   cover: {
-    width: 200,
-    height: 100,
+    width: "100%",
+    height: 150,
   },
   bottom: {
-    paddingTop: 6,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: 10,
   },
   titleText: {
-    fontSize: 28,
-    color: "white",
+    fontSize: 30,
+  },
+  heartContainer: {
+    position: "absolute",
+    right: 5,
+    padding: 5,
   },
 });
 
