@@ -1,13 +1,15 @@
 import React from "react";
-import { Image, StyleSheet, TouchableOpacity } from "react-native";
+import { Image, TouchableOpacity } from "react-native";
 
 interface Props {
   isFavorite: boolean;
+  size?: number;
   handlePressFavorite: () => void;
 }
 
 const FavoriteHeart = ({
   isFavorite,
+  size = 24,
   handlePressFavorite,
 }: Props): JSX.Element => {
   return (
@@ -15,23 +17,16 @@ const FavoriteHeart = ({
       {isFavorite ? (
         <Image
           source={require("./assets/heart-filled-black.png")}
-          style={styles.heart}
+          style={{ height: size, width: size }}
         />
       ) : (
         <Image
           source={require("./assets/heart-line-black.png")}
-          style={styles.heart}
+          style={{ height: size, width: size }}
         />
       )}
     </TouchableOpacity>
   );
 };
-
-const styles = StyleSheet.create({
-  heart: {
-    width: 24,
-    height: 24,
-  },
-});
 
 export { FavoriteHeart };

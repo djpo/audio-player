@@ -38,6 +38,7 @@ const SongScreen = ({ route }: Props): JSX.Element => {
         <View style={styles.heartContainer}>
           <FavoriteHeart
             isFavorite={song.isFavorite}
+            size={50}
             handlePressFavorite={handlePressFavorite}
           />
         </View>
@@ -46,6 +47,7 @@ const SongScreen = ({ route }: Props): JSX.Element => {
         <AudioPlayer url={song.audio} />
         <RatingStars
           rating={song.rating}
+          size={50}
           handlePressRating={handlePressRating}
         />
       </View>

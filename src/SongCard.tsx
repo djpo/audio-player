@@ -42,7 +42,11 @@ const SongCard = ({
           />
         </View>
         <View style={styles.starsContainer}>
-          <RatingStars rating={rating} handlePressRating={handlePressRating} />
+          <RatingStars
+            rating={rating}
+            size={24}
+            handlePressRating={handlePressRating}
+          />
         </View>
       </View>
       <View style={styles.bottom}>
@@ -50,6 +54,7 @@ const SongCard = ({
         <View style={styles.heartContainer}>
           <FavoriteHeart
             isFavorite={isFavorite}
+            size={24}
             handlePressFavorite={handlePressFavorite}
           />
         </View>

@@ -3,13 +3,13 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface Props {
   rating: number;
-  starSize?: number;
+  size?: number;
   handlePressRating: (newRating: number) => void;
 }
 
 const RatingStars = ({
   rating,
-  starSize = 24,
+  size = 24,
   handlePressRating,
 }: Props): JSX.Element => {
   return (
@@ -28,7 +28,7 @@ const RatingStars = ({
                   ? require("./assets/star-filled-black.png")
                   : require("./assets/star-line-black.png")
               }
-              style={styles.star}
+              style={{ height: size, width: size }}
             />
           </TouchableOpacity>
         );
@@ -40,10 +40,7 @@ const RatingStars = ({
 const styles = StyleSheet.create({
   starsRow: {
     flexDirection: "row",
-  },
-  star: {
-    width: 24,
-    height: 24,
+    justifyContent: "center",
   },
 });
 
