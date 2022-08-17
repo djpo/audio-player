@@ -1,5 +1,5 @@
 import React from "react";
-import { Image, StyleSheet, Text, View } from "react-native";
+import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 
 import { selectSongs } from "./redux/selectors";
@@ -27,14 +27,20 @@ const SongScreen = ({ route }: Props): JSX.Element => {
 
   return (
     <View style={styles.screen}>
-      <View style={styles.top}>
+      <View>
         <View style={styles.coverContainer}>
-          <Image source={{ uri: song.cover }} style={styles.cover} />
+          <Image
+            source={{ uri: song.cover }}
+            resizeMode="cover"
+            style={styles.cover}
+          />
         </View>
-        <FavoriteHeart
-          isFavorite={song.isFavorite}
-          handlePressFavorite={handlePressFavorite}
-        />
+        <View style={styles.heartContainer}>
+          <FavoriteHeart
+            isFavorite={song.isFavorite}
+            handlePressFavorite={handlePressFavorite}
+          />
+        </View>
       </View>
       <View style={styles.bottom}>
         <AudioPlayer url={song.audio} />
@@ -51,15 +57,22 @@ const styles = StyleSheet.create({
   screen: {
     height: "100%",
     backgroundColor: "rgb(220,220,220)",
-    padding: 20,
+    padding: 40,
   },
-  top: {},
   coverContainer: {
-    height: 100,
+    height: 300,
+    alignItems: "center",
   },
   cover: {
-    width: 200,
-    height: 100,
+    width: "100%",
+    height: 300,
+  },
+  heartContainer: {
+    position: "absolute",
+    right: 0,
+    bottom: 0,
+    backgroundColor: "rgba(255,255,255,0.5)",
+    padding: 8,
   },
   bottom: {
     alignItems: "center",

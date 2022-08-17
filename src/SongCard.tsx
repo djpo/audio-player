@@ -68,7 +68,7 @@ const styles = StyleSheet.create({
   top: {},
   starsContainer: {
     position: "absolute",
-    backgroundColor: "rgba(200,200,200,0.6)",
+    backgroundColor: "rgba(255,255,255,0.5)",
     padding: 8,
   },
   coverContainer: {

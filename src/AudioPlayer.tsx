@@ -119,22 +119,18 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
     <View style={styles.playerContainer}>
       <TouchableOpacity
         onPress={handlePressPlayPause}
-        style={isPlaying ? styles.audioPlaying : styles.audioNotPlaying}
-      >
-        <Text style={styles.buttonText}>{isPlaying ? "pause" : "play"}</Text>
-      </TouchableOpacity>
-      <View style={styles.sliderContainer}>
-        <Slider
-          style={styles.slider}
-          minimumValue={0}
-          maximumValue={1}
-          minimumTrackTintColor="rgb(80,80,80)"
-          maximumTrackTintColor="rgb(40,40,40)"
-          thumbTintColor="rgb(80,80,80)"
-          value={getSliderValue()}
-          onSlidingComplete={handleOnSlidingComplete}
-        />
-      </View>
+        style={styles.playPauseButton}
+      />
+      <Slider
+        style={styles.slider}
+        minimumValue={0}
+        maximumValue={1}
+        minimumTrackTintColor="rgb(80,80,80)"
+        maximumTrackTintColor="rgb(40,40,40)"
+        thumbTintColor="rgb(80,80,80)"
+        value={getSliderValue()}
+        onSlidingComplete={handleOnSlidingComplete}
+      />
       <View style={styles.playtimeContainer}>
         <Text style={styles.playtime}>
           {displayPlaytime(currentTime)} / {displayPlaytime(duration)}
@@ -146,35 +142,22 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
 
 const styles = StyleSheet.create({
   playerContainer: {
+    marginTop: 20,
+    marginBottom: 15,
     alignItems: "center",
   },
-  audioNotPlaying: {
+  playPauseButton: {
+    position: "absolute",
+    top: -200,
     height: 100,
     width: 100,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "red",
-  },
-  audioPlaying: {
-    height: 100,
-    width: 100,
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "green",
-  },
-  buttonText: {
-    fontSize: 30,
-  },
-  sliderContainer: {
-    marginTop: 25,
+    backgroundColor: "transparent",
   },
   slider: {
-    width: 250,
+    width: 300,
     height: 40,
   },
   playtimeContainer: {
-    marginTop: 15,
-    marginBottom: 20,
     height: 30,
   },
   playtime: {

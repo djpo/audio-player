@@ -3,10 +3,15 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 
 interface Props {
   rating: number;
+  starSize?: number;
   handlePressRating: (newRating: number) => void;
 }
 
-const RatingStars = ({ rating, handlePressRating }: Props): JSX.Element => {
+const RatingStars = ({
+  rating,
+  starSize = 24,
+  handlePressRating,
+}: Props): JSX.Element => {
   return (
     <View style={styles.starsRow}>
       {[1, 2, 3, 4, 5].map((starNumber) => {
