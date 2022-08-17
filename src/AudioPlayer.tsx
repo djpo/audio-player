@@ -107,8 +107,10 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
     return currentTime / duration;
   };
 
-  const handleOnSlidingComplete = (value: number) => {
-    console.log(`onSlidingComplete: ${value}`);
+  const handleOnSlidingComplete = (value: number): void => {
+    if (audio && duration >= 0) {
+      audio.setCurrentTime(value * duration);
+    }
   };
 
   return (
