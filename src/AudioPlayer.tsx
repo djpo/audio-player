@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import Sound from "react-native-sound";
+import Slider from "@react-native-community/slider";
 
 Sound.setCategory("Playback");
 
@@ -99,6 +100,17 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
     }
   };
 
+  const getSliderValue = (): number => {
+    if (currentTime < 0 || duration < 0) {
+      return 0;
+    }
+    return currentTime / duration;
+  };
+
+  const handleOnSlidingComplete = (value: number) => {
+    console.log(`onSlidingComplete: ${value}`);
+  };
+
   return (
     <View style={styles.playerContainer}>
       <TouchableOpacity
@@ -108,7 +120,13 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
         <Text style={styles.buttonText}>{isPlaying ? "pause" : "play"}</Text>
       </TouchableOpacity>
       <View style={styles.sliderContainer}>
-        <Text style={styles.slider}>----------(slider)----------</Text>
+        <Slider
+          style={styles.slider}
+          minimumValue={0}
+          maximumValue={1}
+          value={getSliderValue()}
+          onSlidingComplete={handleOnSlidingComplete}
+        />
       </View>
       <View style={styles.playtimeContainer}>
         <Text style={styles.playtime}>
@@ -141,14 +159,14 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   sliderContainer: {
-    marginBottom: 20,
-    height: 30,
-    alignItems: "center",
+    marginTop: 25,
   },
   slider: {
-    fontSize: 30,
+    width: 250,
+    height: 40,
   },
   playtimeContainer: {
+    marginTop: 15,
     marginBottom: 20,
     height: 30,
   },
