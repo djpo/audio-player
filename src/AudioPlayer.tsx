@@ -61,14 +61,16 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
     return () => newAudio.release();
   }, []);
 
-  // set currentTime (at regular interval)
+  // set currentTime & duration (every 0.1 seconds)
   useInterval(() => {
     if (audio) {
       audio.getCurrentTime((secs) => {
         setCurrentTime(secs);
       });
+
+      setDuration(audio.getDuration());
     }
-  }, 1000);
+  }, 30);
 
   const handlePressPlayPause = () => {
     if (audio) {
