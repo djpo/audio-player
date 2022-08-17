@@ -21,7 +21,7 @@ const HomeScreen = ({ navigation }): JSX.Element => {
 
   return (
     <SafeAreaView style={styles.screen}>
-      <StatusBar barStyle="dark-content" />
+      <StatusBar barStyle="light-content" />
       <ScrollView contentInsetAdjustmentBehavior="automatic">
         <View>
           {songs.map(({ id, title, cover, rating, isFavorite }: Song) => (
