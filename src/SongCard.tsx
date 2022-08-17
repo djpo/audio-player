@@ -61,14 +61,14 @@ const SongCard = ({
 const styles = StyleSheet.create({
   card: {
     borderWidth: 1,
-    // borderColor: "red",
+    borderColor: "black",
     margin: 20,
     marginBottom: 0,
   },
   top: {},
   starsContainer: {
     position: "absolute",
-    backgroundColor: "rgba(50,50,50,0.6)",
+    backgroundColor: "rgba(200,200,200,0.6)",
     padding: 8,
   },
   coverContainer: {
@@ -86,6 +86,7 @@ const styles = StyleSheet.create({
   },
   titleText: {
     fontSize: 30,
+    color: "black",
   },
   heartContainer: {
     position: "absolute",

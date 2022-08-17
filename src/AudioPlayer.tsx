@@ -128,6 +128,9 @@ const AudioPlayer = ({ url }: Props): JSX.Element => {
           style={styles.slider}
           minimumValue={0}
           maximumValue={1}
+          minimumTrackTintColor="rgb(80,80,80)"
+          maximumTrackTintColor="rgb(40,40,40)"
+          thumbTintColor="rgb(80,80,80)"
           value={getSliderValue()}
           onSlidingComplete={handleOnSlidingComplete}
         />
@@ -176,6 +179,7 @@ const styles = StyleSheet.create({
   },
   playtime: {
     fontSize: 30,
+    color: "black",
   },
 });
 

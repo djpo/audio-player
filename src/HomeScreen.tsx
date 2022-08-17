@@ -4,10 +4,9 @@ import {
   SafeAreaView,
   ScrollView,
   StatusBar,
-  useColorScheme,
+  StyleSheet,
   View,
 } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
 
 import { selectSongs } from "./redux/selectors";
 import { SongCard } from "./SongCard";
@@ -16,27 +15,15 @@ import type { Song } from "./types";
 const HomeScreen = ({ navigation }): JSX.Element => {
   const songs = useSelector(selectSongs);
 
-  const isDarkMode = useColorScheme() === "dark";
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? Colors.darker : Colors.lighter,
-  };
-
   const handlePressSong = (screenHeader: string, id: number) => {
     navigation.navigate("Song", { screenHeader, id });
   };
 
   return (
-    <SafeAreaView style={backgroundStyle}>
-      <StatusBar barStyle={isDarkMode ? "light-content" : "dark-content"} />
-      <ScrollView
-        contentInsetAdjustmentBehavior="automatic"
-        style={backgroundStyle}
-      >
-        <View
-          style={{
-            backgroundColor: isDarkMode ? Colors.black : Colors.white,
-          }}
-        >
+    <SafeAreaView style={styles.screen}>
+      <StatusBar barStyle="dark-content" />
+      <ScrollView contentInsetAdjustmentBehavior="automatic">
+        <View>
           {songs.map(({ id, title, cover, rating, isFavorite }: Song) => (
             <SongCard
               key={id.toString()}
@@ -53,5 +40,12 @@ const HomeScreen = ({ navigation }): JSX.Element => {
     </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  screen: {
+    height: "100%",
+    backgroundColor: "rgb(220,220,220)",
+  },
+});
 
 export { HomeScreen };

@@ -49,6 +49,8 @@ const SongScreen = ({ route }: Props): JSX.Element => {
 
 const styles = StyleSheet.create({
   screen: {
+    height: "100%",
+    backgroundColor: "rgb(220,220,220)",
     padding: 20,
   },
   top: {},
